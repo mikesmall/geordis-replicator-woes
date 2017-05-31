@@ -43,11 +43,32 @@ class Reactor
     !@on
   end
 
-  def heat_items_in_core
-    @core.contents.each do |item|
-      item.temperature = 1 if draw_power
-    end
+# Original code:
+
+  # def heat_items_in_core
+  #   @core.contents.each do |item|
+  #     item.temperature = 1 if draw_power
+  #   end
+  # end
+
+# Replacement code that causes error:
+
+#   def heat_items_in_core
+#     @core.contents.each do |item|
+#      item.temperature += 1 if draw_power. # FIXED!
+#     end
+#   end
+
+# Re-trying replacement code, with period in line 58 deleted:
+
+def heat_items_in_core
+  @core.contents.each do |item|
+    item.temperature += 1 if draw_power # FIXED!
   end
+end
+
+# UPDATE: It works now.
+# The period must be a typo in the lesson text.
 
   def cool_items_in_core
     @core.contents.each do |item|
